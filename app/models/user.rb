@@ -1,18 +1,13 @@
 class User < ApplicationRecord
-  validates :username, :email, :password, presence: true
-  validates :username, :email, uniqueness: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  has_secure_password
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+          :recoverable, :rememberable, :validatable
+  has_many(
+    :communities,
+    class_name: 'Community',
+    foreign_key: 'user_id',
+    inverse_of: :user,
+    dependent: :destroy
+  )
 end
-
-# == Schema Information
-#
-# Table name: users
-#
-#  id              :bigint           not null, primary key
-#  username        :string
-#  password_digest :string
-#  email           :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#

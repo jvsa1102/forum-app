@@ -1,0 +1,17 @@
+<div id="<%= dom_id community %>">
+  <p>
+    <strong>Name:</strong>
+    <%= community.name %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= community.description %>
+  </p>
+
+  <p>
+    <strong>Owner:</strong>
+    <%= User.find_by(id:community.user_id).email %>
+  </p>
+
+</div>
